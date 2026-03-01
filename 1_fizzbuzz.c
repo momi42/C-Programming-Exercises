@@ -36,3 +36,20 @@ fizzbuzz
 fizz
 buzz
 $> */
+
+#include <unistd.h>
+
+int main(void)
+{
+    int     i;
+    char    n;
+
+    i = 1;
+    while (i < 100)
+    {
+        n = i - 0;
+        write(1, &n, 1);
+        i++;
+    }
+    return (0);
+}
