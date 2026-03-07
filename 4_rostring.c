@@ -32,3 +32,38 @@ $>
 $>./rostring | cat -e
 $
 $> */
+
+#include <unistd.h>
+#include <stdlib.h>
+
+int is_space(char c)
+{
+	if ((c > 8 && c < 14) || c == ' ')
+		return(1);
+	return(0);
+}
+int strlen(char *str)
+{
+	int i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+int main(int ac, char *av[])
+{
+	int i = 0;
+	int len = strlen(av[1]);
+	if (ac == 2)
+	{
+		char *str = malloc(len + 1);
+		if (!str)
+			return (0);
+		while(av[1][i])
+		{
+
+		}
+	}
+	write(1, '\n', 1);
+	return (0);
+}
