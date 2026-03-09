@@ -83,3 +83,7 @@ F00F000F
 F0FF000F
 FFF0000F
 $> */
+
+
+void  flood_fill(char **tab, t_point size, t_point begin)
+{}

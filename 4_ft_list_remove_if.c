@@ -21,3 +21,53 @@ typedef struct      s_list
     void            *data;
 }                   t_list;
 $> */
+
+#include "ft_list.h"
+#include <stdlib.h>
+
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+{
+	if (!begin_list || !*begin_list)
+		return ;
+	t_list *head = *begin_list;
+	while(head && (cmp(head->data, data_ref) == 0))
+	{
+		*begin_list = head->next;
+		free(head);
+		head = *begin_list;
+	}
+	t_list *current = *begin_list;
+	while (current && current->next)
+	{
+		if(cmp(current->next->data, data_ref) == 0)
+		{
+			t_list *tmp = current->next;
+			current->next = tmp->next;
+			free(tmp);
+		}
+		else
+			current = current->next;
+	}
+	
+}
+
+//-----------------
+
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
+{
+    if (!begin_list || !*begin_list)
+        return;
+
+    t_list *cur = *begin_list;
+
+    if ((*cmp)(cur->data, data_ref) == 0)
+    {
+        *begin_list = cur->next;
+        free(cur);
+        ft_list_remove_if(begin_list, data_ref, cmp);
+    }
+    else
+    {
+        ft_list_remove_if(&cur->next, data_ref, cmp);
+    }
+}

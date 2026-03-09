@@ -28,3 +28,39 @@ $> ./rev_wstr | cat -e
 $
 $>
  */
+
+
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+
+ int is_space(char c)
+ {
+	return((c > 8 && c < 14) || c == ' ');
+ }
+
+ int main(int ac, char * av[])
+ {
+	if (ac == 2)
+	{
+		int i = 0;
+		while(av[1][i])
+			i++;
+		i--;
+		while(i >= 0)
+		{
+			while(i >= 0 && is_space(av[1][i]))
+				i--;
+			int end = i;
+			while ((i >= 0) && !is_space(av[1][i]))
+				i--;
+			int start = i + 1;
+			while (start <= end)
+				write(1, &(av[1][start++]), 1);
+			if (i >= 0)
+				write(1, " ", 1);
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+ }

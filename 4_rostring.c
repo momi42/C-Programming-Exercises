@@ -34,36 +34,44 @@ $
 $> */
 
 #include <unistd.h>
-#include <stdlib.h>
 
 int is_space(char c)
 {
-	if ((c > 8 && c < 14) || c == ' ')
-		return(1);
-	return(0);
+	return((c > 8 && c < 14) || c == ' ');
 }
-int strlen(char *str)
+
+void	rostring(char *str)
 {
 	int i = 0;
-	while(str[i])
+	while(str[i] && is_space(str[i]))
 		i++;
-	return (i);
+	int start = i;
+	while(str[i] && !is_space(str[i]))
+		i++;
+	int end = i;
+	while(str[i])
+	{
+		if (!is_space(str[i]))
+		{
+			while(str[i] && !is_space(str[i]))
+				write(1, &(str[i++]), 1);
+			write(1, " ", 1);
+		}
+		else
+			i++;
+	}
+	while(start < end)
+	{
+		write(1, &(str[start++]), 1);
+	}
 }
 
 int main(int ac, char *av[])
 {
-	int i = 0;
-	int len = strlen(av[1]);
-	if (ac == 2)
+	if (ac >= 2 && av[1][0])
 	{
-		char *str = malloc(len + 1);
-		if (!str)
-			return (0);
-		while(av[1][i])
-		{
-
-		}
+		rostring(av[1]);
 	}
-	write(1, '\n', 1);
+	write(1, "\n", 1);
 	return (0);
 }
