@@ -84,6 +84,19 @@ F0FF000F
 FFF0000F
 $> */
 
+#include "flood_fill.h"
+#include <stdio.h>
 
 void  flood_fill(char **tab, t_point size, t_point begin)
-{}
+{
+		for (int i = 0; i < size.y; i++)
+	{
+		for (int j = 0; j <size.x; j++)
+		{
+			if (tab[begin.y][begin.x] == '1')
+				tab[begin.y][begin.x] = 'F';
+			while (tab[begin.y][begin.x--] == 1 && tab[begin.y][begin.x++] == 1 && tab[begin.y--][begin.x] == 1 && tab[begin.y++][begin.y] == 1)
+				tab[begin.y][begin.x] = 'F';
+		}
+	}
+}
